@@ -1,0 +1,27 @@
+[
+  {
+    "power": 150,
+    "model": "Toyota Camry",
+    "year": 2020
+  },
+  {
+    "power": 450,
+    "model": "BMW M5",
+    "year": 2022
+  },
+  {
+    "power": 90,
+    "model": "Lada Granta",
+    "year": 2015
+  },
+  {
+    "power": 600,
+    "model": "Tesla Model S",
+    "year": 2023
+  },
+  {
+    "power": 120,
+    "model": "Volkswagen Golf",
+    "year": 2018
+  }
+]

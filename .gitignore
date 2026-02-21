@@ -1,0 +1,25 @@
+# Скомпилированные файлы
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# Логи
+*.log
+
+# Файлы IntelliJ IDEA
+.idea/
+*.iml
+out/
+gen/
+
+# Файлы Eclipse
+.metadata/
+.classpath
+.project
+.settings/
+
+# Системные файлы
+.DS_Store
+Thumbs.db
