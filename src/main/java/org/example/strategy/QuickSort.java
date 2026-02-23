@@ -26,6 +26,9 @@ public class QuickSort implements SortingStrategy {
     }
 
     private int partition(List<Car> cars, int low, int high, Comparator<Car> comparator) {
+        int randomIndex = low + (int) (Math.random() * (high - low + 1));
+        Collections.swap(cars, randomIndex, high);
+
         Car pivot = cars.get(high);
         int i = (low - 1);
 
