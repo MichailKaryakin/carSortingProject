@@ -41,17 +41,29 @@ public class Car {
     }
 
     // три компаратора для сортировки по трём разным полям compareByPower(),
-    // compareByModel(), compareByYear()
-    public static Comparator<Car> compareByPower() {
-        return Comparator.comparingInt(Car::getPower);
+    // compareByModel(), compareByYear() + компаратор compareByAllFields()
+    public static int compareByPower(Car c1, Car c2) {
+        return Integer.compare(c1.getPower(), c2.getPower());
     }
 
-    public static Comparator<Car> compareByModel() {
-        return Comparator.comparing(Car::getModel);
+    public static int compareByModel(Car c1, Car c2) {
+        return c1.getModel().compareTo(c2.getModel());
     }
 
-    public static Comparator<Car> compareByYear() {
-        return Comparator.comparingInt(Car::getYear);
+    public static int compareByYear(Car c1, Car c2) {
+        return Integer.compare(c1.getYear(), c2.getYear());
+    }
+
+    public static int compareByAllFields(Car c1, Car c2) {
+        int result;
+
+        result = compareByModel(c1, c2);
+        if (result != 0) return result;
+
+        result = compareByYear(c1, c2);
+        if (result != 0) return result;
+
+        return compareByPower(c1, c2);
     }
 
     // вложенный класс билдер
