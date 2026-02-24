@@ -42,28 +42,32 @@ public class Car {
 
     // три компаратора для сортировки по трём разным полям compareByPower(),
     // compareByModel(), compareByYear() + компаратор compareByAllFields()
-    public static int compareByPower(Car c1, Car c2) {
-        return Integer.compare(c1.getPower(), c2.getPower());
+    public static Comparator<Car> compareByPower() {
+        return (c1, c2) -> Integer.compare(c1.getPower(), c2.getPower());
     }
 
-    public static int compareByModel(Car c1, Car c2) {
-        return c1.getModel().compareTo(c2.getModel());
+    public static Comparator<Car> compareByModel() {
+        return (c1, c2) -> {
+            if (c1.getModel() == null) return (c2.getModel() == null) ? 0 : -1;
+            if (c2.getModel() == null) return 1;
+            return c1.getModel().compareTo(c2.getModel());
+        };
     }
 
-    public static int compareByYear(Car c1, Car c2) {
-        return Integer.compare(c1.getYear(), c2.getYear());
+    public static Comparator<Car> compareByYear() {
+        return (c1, c2) -> Integer.compare(c1.getYear(), c2.getYear());
     }
 
-    public static int compareByAllFields(Car c1, Car c2) {
-        int result;
+    public static Comparator<Car> compareByAllFields() {
+        return (c1, c2) -> {
+            int modelRes = compareByModel().compare(c1, c2);
+            if (modelRes != 0) return modelRes;
 
-        result = compareByModel(c1, c2);
-        if (result != 0) return result;
+            int yearRes = compareByYear().compare(c1, c2);
+            if (yearRes != 0) return yearRes;
 
-        result = compareByYear(c1, c2);
-        if (result != 0) return result;
-
-        return compareByPower(c1, c2);
+            return compareByPower().compare(c1, c2);
+        };
     }
 
     // вложенный класс билдер
