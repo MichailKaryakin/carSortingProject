@@ -1,10 +1,27 @@
 package org.example.util;
 
+import org.example.model.Car;
+
 public class Validator {
-    // публичные статические методы для валидации полей
-    // возвращают void (не boolean), но бросают исключение
-    // прошу присмотреться к методу read в DataReader, там указан проброс исключения
-    // соответственно, его реализации тоже их бросают,
-    // исключения летят так: Validator -> Builder (здесь вызывается валидатор, но нет throws) ->
-    // DataReader -> MenuController (здесь обработка)
+
+    private final CarValidator chain;
+
+    public Validator() {
+        CarValidator powerValidator = new PowerValidator();
+        CarValidator modelValidator = new ModelValidator();
+        CarValidator yearValidator = new YearValidator();
+
+        powerValidator.setNext(modelValidator);
+        modelValidator.setNext(yearValidator);
+
+        this.chain = powerValidator;
+    }
+
+    public void validate(Car car) {
+        if (car == null) {
+            throw new DataImportException("Машина не может быть null");
+        }
+
+        chain.validate(car);
+    }
 }
