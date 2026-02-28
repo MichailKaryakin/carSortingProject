@@ -1,6 +1,7 @@
 package org.example.util;
 
 import org.example.model.Car;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
@@ -24,22 +25,38 @@ public final class SearchUtils {
     }
 
     public static void countCarsByPowerParallel(List<Car> data, int targetPower) {
-        measureAndPrint("Многопоточный поиск (2 потока)", () -> {
+        // Определяем количество доступных ядер процессора
+        int numThreads = Runtime.getRuntime().availableProcessors();
+
+        measureAndPrint("Многопоточный поиск (" + numThreads + " пот.)", () -> {
+            if (data == null || data.isEmpty()) return 0;
+
             AtomicInteger totalCount = new AtomicInteger(0);
-            int mid = data.size() / 2;
+            List<Thread> threads = new ArrayList<>();
 
-            Thread t1 = createSearchThread(data, 0, mid, targetPower, totalCount);
-            Thread t2 = createSearchThread(data, mid, data.size(), targetPower, totalCount);
+            // Рассчитываем размер чанка для каждого потока
+            int size = data.size();
+            int chunkSize = (int) Math.ceil((double) size / numThreads);
 
-            t1.start();
-            t2.start();
+            for (int i = 0; i < numThreads; i++) {
+                int start = i * chunkSize;
+                int end = Math.min(start + chunkSize, size);
 
-            try {
-                t1.join();
-                t2.join();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                return 0;
+                // Если данных меньше, чем потоков, выходим из цикла
+                if (start >= size) break;
+
+                Thread thread = createSearchThread(data, start, end, targetPower, totalCount);
+                threads.add(thread);
+                thread.start();
+            }
+
+            // Ожидаем завершения всех запущенных потоков
+            for (Thread thread : threads) {
+                try {
+                    thread.join();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
             }
             return totalCount.get();
         });
@@ -57,12 +74,7 @@ public final class SearchUtils {
         });
     }
 
-    /**
-     * Обобщенный метод замера времени (устраняет дублирование вывода).
-     */
     private static void measureAndPrint(String label, Supplier<Integer> task) {
-        if (task == null) return;
-
         long startTime = System.nanoTime();
         int result = task.get();
         long endTime = System.nanoTime();
