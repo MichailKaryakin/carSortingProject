@@ -1,5 +1,6 @@
 package org.example.util;
 
+import org.example.exception.DataValidateException;
 import org.example.model.Car;
 
 public class PowerValidator extends AbstractCarValidator {
@@ -9,13 +10,13 @@ public class PowerValidator extends AbstractCarValidator {
         int power = car.getPower();
 
         if (power <= 0) {
-            throw new DataImportException(
+            throw new DataValidateException(
                     "Мощность должна быть больше 0 (получено: " + power + ")"
             );
         }
 
         if (power > 2000) {
-            throw new DataImportException(
+            throw new DataValidateException(
                     "Мощность слишком большая (максимум 2000 л.с., получено: " + power + ")"
             );
         }

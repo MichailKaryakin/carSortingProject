@@ -1,5 +1,6 @@
 package org.example.util;
 
+import org.example.exception.DataValidateException;
 import org.example.model.Car;
 
 public class ModelValidator extends AbstractCarValidator {
@@ -9,17 +10,17 @@ public class ModelValidator extends AbstractCarValidator {
         String model = car.getModel();
 
         if (model == null) {
-            throw new DataImportException("Модель не может быть null");
+            throw new DataValidateException("Модель не может быть null");
         }
 
         String trimmed = model.trim();
 
-        if (trimmed.isEmpty()) {
-            throw new DataImportException("Модель не может быть пустой строкой");
+        if (model.isBlank()) {
+            throw new DataValidateException("Модель не может быть пустой строкой");
         }
 
         if (trimmed.length() < 3) {
-            throw new DataImportException(
+            throw new DataValidateException(
                     "Модель слишком короткая (минимум 3 символа, получено: '" + model + "')"
             );
         }

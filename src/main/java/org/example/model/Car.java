@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Comparator;
 import java.util.Objects;
 
-@SuppressWarnings("ClassCanBeRecord")
 public class Car {
     private final int power;
     private final String model;
@@ -21,7 +20,6 @@ public class Car {
         this.year = year;
     }
 
-    // приватный конструктор, принимающий билдер
     private Car(Builder builder) {
         this.power = builder.power;
         this.model = builder.model;
@@ -40,10 +38,8 @@ public class Car {
         return year;
     }
 
-    // три компаратора для сортировки по трём разным полям compareByPower(),
-    // compareByModel(), compareByYear() + компаратор compareByAllFields()
     public static Comparator<Car> compareByPower() {
-        return (c1, c2) -> Integer.compare(c1.getPower(), c2.getPower());
+        return Comparator.comparingInt(Car::getPower);
     }
 
     public static Comparator<Car> compareByModel() {
@@ -55,22 +51,15 @@ public class Car {
     }
 
     public static Comparator<Car> compareByYear() {
-        return (c1, c2) -> Integer.compare(c1.getYear(), c2.getYear());
+        return Comparator.comparingInt(Car::getYear);
     }
 
     public static Comparator<Car> compareByAllFields() {
-        return (c1, c2) -> {
-            int modelRes = compareByModel().compare(c1, c2);
-            if (modelRes != 0) return modelRes;
-
-            int yearRes = compareByYear().compare(c1, c2);
-            if (yearRes != 0) return yearRes;
-
-            return compareByPower().compare(c1, c2);
-        };
+        return Comparator.comparing(Car::getModel, Comparator.nullsFirst(String::compareTo))
+                .thenComparingInt(Car::getYear)
+                .thenComparingInt(Car::getPower);
     }
 
-    // вложенный класс билдер
     public static class Builder {
 
         private int power;
@@ -97,7 +86,6 @@ public class Car {
         }
     }
 
-    // equals, hashCode, toString
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -117,7 +105,6 @@ public class Car {
         return "Car: " +
                 "power = " + power +
                 ", model = '" + model +
-                ", year = " + year +
-                '}';
+                ", year = " + year;
     }
 }
