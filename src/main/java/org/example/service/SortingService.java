@@ -1,7 +1,7 @@
 package org.example.service;
 
 import org.example.model.Car;
-import org.example.strategy.SortingStrategy;
+import org.example.sorting.SortingStrategy;
 
 import java.util.Comparator;
 import java.util.List;
