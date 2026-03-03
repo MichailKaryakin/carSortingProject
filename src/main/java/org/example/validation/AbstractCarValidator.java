@@ -1,4 +1,4 @@
-package org.example.util;
+package org.example.validation;
 
 import org.example.model.Car;
 
