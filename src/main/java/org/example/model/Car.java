@@ -105,6 +105,6 @@ public class Car {
         return "Car: " +
                 "power = " + power +
                 ", model = '" + model +
-                ", year = " + year;
+                "', year = " + year;
     }
 }

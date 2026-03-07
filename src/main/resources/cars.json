@@ -23,5 +23,55 @@
     "power": 120,
     "model": "Volkswagen Golf",
     "year": 2018
+  },
+  {
+    "power": 425,
+    "model": "Dodge Charger",
+    "year": 1969
+  },
+  {
+    "power": 75,
+    "model": "Fiat 500",
+    "year": 2021
+  },
+  {
+    "power": 310,
+    "model": "Ford Mustang",
+    "year": 2017
+  },
+  {
+    "power": 190,
+    "model": "Audi A4",
+    "year": 2014
+  },
+  {
+    "power": 1001,
+    "model": "Bugatti Veyron",
+    "year": 2005
+  },
+  {
+    "power": 110,
+    "model": "Hyundai Solaris",
+    "year": 2023
+  },
+  {
+    "power": 510,
+    "model": "Alfa Romeo Giulia",
+    "year": 2019
+  },
+  {
+    "power": 85,
+    "model": "Renault Logan",
+    "year": 2010
+  },
+  {
+    "power": 700,
+    "model": "Porsche 911 GT2 RS",
+    "year": 2018
+  },
+  {
+    "power": 250,
+    "model": "Subaru Impreza WRX STI",
+    "year": 2004
   }
 ]

@@ -1,4 +1,4 @@
-package org.example.strategy;
+package org.example.sorting;
 
 import org.example.model.Car;
 import java.util.Comparator;
@@ -7,9 +7,7 @@ import java.util.List;
 public class SelectionSort implements SortingStrategy{
     @Override
     public void sort(List<Car> cars, Comparator<Car> comparator) {
-        if (cars == null || cars.size() < 2 || comparator == null) {
-            return;
-        }
+        if (cars == null || cars.size() < 2 || comparator == null) return;
 
         Comparator<Car> nullSafeComparator = Comparator.nullsLast(comparator);
 
@@ -21,9 +19,9 @@ public class SelectionSort implements SortingStrategy{
                 }
             }
             if (minIndex != i) {
-                Car minCar = cars.get(minIndex);
-                cars.remove(minIndex);
-                cars.add(i, minCar);
+                Car temp = cars.get(i);
+                cars.set(i, cars.get(minIndex));
+                cars.set(minIndex, temp);
             }
         }
     }

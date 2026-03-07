@@ -100,10 +100,10 @@ public class MenuController {
 
         SortingStrategy strategy = switch (algoChoice) {
             case "1" -> new BubbleSort();
-//            case "2" -> new SelectionSort();
+            case "2" -> new SelectionSort();
             case "3" -> new InsertionSort();
             case "4" -> new QuickSort();
-//            case "5" -> new MergeSort();
+            case "5" -> new MergeSort();
             default -> null;
         };
 
