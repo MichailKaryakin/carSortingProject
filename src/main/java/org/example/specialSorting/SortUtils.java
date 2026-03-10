@@ -7,8 +7,6 @@ import java.util.Comparator;
 import java.util.List;
 
 public class SortUtils {
-
-    ///  создаем лист из объектов с четными значениями сравниваемых полей
     static List<Car> createEvenList(List<Car> list, Comparator<Car> comparator) {
         List<Car> evenList = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
@@ -19,8 +17,6 @@ public class SortUtils {
         return evenList;
     }
 
-
-    ///  проверяем значение поля на четность
     static boolean isEven(List<Car> list, int index, Comparator<Car> comparator) {
         if (list == null || index < 0 || index >= list.size()) {
             return false;
@@ -41,18 +37,14 @@ public class SortUtils {
         }
     }
 
-    /// получваем значение HorsePower
     static int getValueOfHorsePower(List<Car> cars,int index) {
         return cars.get(index).getPower();
     }
 
-
-    /// получаем значение Year
     static int getValueOfYear(List<Car> cars,int index) {
         return cars.get(index).getYear();
     }
 
-    ///  вставляем отсортированный лист обратно в исходный
     static void insertSortedList(List<Car> sourceList, List<Car> sortedList, Comparator<Car> comparator) {
         for (int i = 0, j = 0; i < sourceList.size(); i++) {
             if (isEven(sourceList, i, comparator)) {
@@ -62,7 +54,6 @@ public class SortUtils {
         }
     }
 
-    /// проверяем входной компаратор на соответствие компоратору compareByHorsePower
     static boolean compareComparatorByHorsePower(Comparator<Car> comparator) {
         Comparator<Car> comparedComparator = Car.compareByPower();
         Car car1 = new Car(2, "1", 0);
@@ -78,7 +69,6 @@ public class SortUtils {
         return isFirstBigger && isSecondBigger && isEqual;
     }
 
-    /// проверяем входной компаратор на соответствие компоратору compareByYear
     static boolean compareComparatorByYear(Comparator<Car> comparator) {
         Comparator<Car> comparedComparator = Car.compareByYear();
         Car car1 = new Car(1, "1", 2);

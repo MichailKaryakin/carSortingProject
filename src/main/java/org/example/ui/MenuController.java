@@ -3,8 +3,10 @@ package org.example.ui;
 import org.example.input.*;
 import org.example.list.MyArrayList;
 import org.example.model.Car;
+import org.example.output.FileOutput;
 import org.example.service.SortingService;
 import org.example.sorting.*;
+import org.example.specialSorting.*;
 import org.example.util.SearchUtils;
 
 import java.util.Comparator;
@@ -74,7 +76,7 @@ public class MenuController {
                 int size = readInt();
                 dataReader = new RandomDataReader(size);
             }
-            case "3" -> dataReader = new ConsoleDataReader();
+            case "3" -> dataReader = new ConsoleDataReader(scanner);
             default -> System.out.println("Неверный выбор источника.");
         }
 
@@ -95,8 +97,20 @@ public class MenuController {
         }
 
         System.out.println("\n--- Выбор алгоритма ---");
-        System.out.println("1 - Пузырьком, 2 - Выбором, 3 - Вставками, 4 - Быстрая, 5 - Cлиянием");
+        System.out.println("1 - Пузырьком");
+        System.out.println("2 - Выбором");
+        System.out.println("3 - Вставками");
+        System.out.println("4 - Быстрая");
+        System.out.println("5 - Слиянием");
+        System.out.println("6 - Пузырьком (только чётные)");
+        System.out.println("7 - Выбором (только чётные)");
+        System.out.println("8 - Вставками (только чётные)");
+        System.out.println("9 - Быстрая (только чётные)");
+        System.out.println("10 - Слиянием (только чётные)");
+        System.out.print("Ваш выбор: ");
+
         String algoChoice = scanner.nextLine();
+        boolean isSpecial = algoChoice.matches("6|7|8|9|10");
 
         SortingStrategy strategy = switch (algoChoice) {
             case "1" -> new BubbleSort();
@@ -104,6 +118,11 @@ public class MenuController {
             case "3" -> new InsertionSort();
             case "4" -> new QuickSort();
             case "5" -> new MergeSort();
+            case "6" -> new SpecialBubbleSort();
+            case "7" -> new SpecialSelectionSort();
+            case "8" -> new SpecialInsertionSort();
+            case "9" -> new SpecialQuickSort();
+            case "10" -> new SpecialMergeSort();
             default -> null;
         };
 
@@ -113,8 +132,18 @@ public class MenuController {
         }
 
         System.out.println("\n--- Поле для сортировки ---");
-        System.out.println("1 - Модель, 2 - Мощность, 3 - Год, 4 - По всем полям");
+        System.out.println("1 - Модель");
+        System.out.println("2 - Мощность");
+        System.out.println("3 - Год");
+        System.out.println("4 - По всем полям");
+        System.out.print("Ваш выбор: ");
+
         String fieldChoice = scanner.nextLine();
+
+        if (isSpecial && (fieldChoice.equals("1") || fieldChoice.equals("4"))) {
+            System.out.println("Ошибка: Особые алгоритмы работают только с числовыми полями (Мощность/Год)!");
+            return;
+        }
 
         Comparator<Car> comparator = switch (fieldChoice) {
             case "1" -> Car.compareByModel();
@@ -132,6 +161,20 @@ public class MenuController {
         sortingService.setStrategy(strategy);
         sortingService.executeSort(carList, comparator);
         System.out.println("Сортировка выполнена успешно!");
+
+        System.out.print("Записать результат сортировки в отдельный файл? (y/n): ");
+        if (scanner.nextLine().equalsIgnoreCase("y")) {
+            try {
+                String timestamp = java.time.LocalDateTime.now()
+                        .format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"));
+                String fileName = "src/main/resources/sort_result_" + timestamp + ".jsonl";
+
+                FileOutput.appendCarsToFile(carList, fileName);
+                System.out.println("Файл успешно создан: " + fileName);
+            } catch (Exception e) {
+                System.out.println("Ошибка при сохранении: " + e.getMessage());
+            }
+        }
     }
 
     private void displayData() {

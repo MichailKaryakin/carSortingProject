@@ -1,10 +1,11 @@
 package org.example.sorting;
 
 import org.example.model.Car;
+
 import java.util.Comparator;
 import java.util.List;
 
-public class SelectionSort implements SortingStrategy{
+public class SelectionSort implements SortingStrategy {
     @Override
     public void sort(List<Car> cars, Comparator<Car> comparator) {
         if (cars == null || cars.size() < 2 || comparator == null) return;

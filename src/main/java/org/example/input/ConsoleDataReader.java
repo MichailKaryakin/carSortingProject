@@ -8,8 +8,12 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleDataReader implements DataReader {
-    private final Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner;
     private final Validator validator = new Validator();
+
+    public ConsoleDataReader(Scanner scanner) {
+        this.scanner = scanner;
+    }
 
     @Override
     public List<Car> read() {

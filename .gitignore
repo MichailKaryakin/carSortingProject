@@ -13,6 +13,7 @@ target/
 *.iml
 out/
 gen/
+*.jsonl
 
 # Файлы Eclipse
 .metadata/

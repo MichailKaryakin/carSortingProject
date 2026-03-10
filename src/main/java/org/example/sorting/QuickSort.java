@@ -7,7 +7,6 @@ import java.util.Comparator;
 import java.util.List;
 
 public class QuickSort implements SortingStrategy {
-
     @Override
     public void sort(List<Car> cars, Comparator<Car> comparator) {
         if (cars == null || cars.size() < 2) {
