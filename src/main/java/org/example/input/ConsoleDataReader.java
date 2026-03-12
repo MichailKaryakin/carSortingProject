@@ -45,7 +45,7 @@ public class ConsoleDataReader implements DataReader {
             try {
                 return Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
-                System.out.print("Это не число. Попробуйте еще раз: ");
+                System.out.print("Значение некорректно. Попробуйте еще раз: ");
             }
         }
     }

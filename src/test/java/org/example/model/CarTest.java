@@ -41,7 +41,7 @@ class CarTest {
     class ComparatorTests {
 
         @Test
-        @DisplayName("Сортировка по числовому значению мощности")
+        @DisplayName("Сравнение по числовому значению мощности")
         void compareByPowerShouldWork() {
             Car weakCar = new Car.Builder().power(100).build();
             Car strongCar = new Car.Builder().power(300).build();
@@ -53,7 +53,7 @@ class CarTest {
         }
 
         @Test
-        @DisplayName("Сортировка по году выпуска")
+        @DisplayName("Сравнение по году выпуска")
         void compareByYearShouldWork() {
             Car oldCar = new Car.Builder().year(1990).build();
             Car newCar = new Car.Builder().year(2024).build();
@@ -76,7 +76,7 @@ class CarTest {
         }
 
         @Test
-        @DisplayName("Последовательная сортировка по всем полям объекта")
+        @DisplayName("Последовательная сравнение по всем полям объекта")
         void compareByAllFieldsShouldWorkSequentially() {
             Car car1 = new Car.Builder().model("Lada").year(2010).power(80).build();
             Car car2 = new Car.Builder().model("Lada").year(2020).power(100).build();

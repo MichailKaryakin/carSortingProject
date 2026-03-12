@@ -33,15 +33,15 @@ public class SortUtils {
         } else if (compareComparatorByYear(comparator) && !compareComparatorByHorsePower(comparator)) {
             return getValueOfYear(list, index) % 2 == 0;
         } else {
-            return  false;
+            return false;
         }
     }
 
-    static int getValueOfHorsePower(List<Car> cars,int index) {
+    static int getValueOfHorsePower(List<Car> cars, int index) {
         return cars.get(index).getPower();
     }
 
-    static int getValueOfYear(List<Car> cars,int index) {
+    static int getValueOfYear(List<Car> cars, int index) {
         return cars.get(index).getYear();
     }
 

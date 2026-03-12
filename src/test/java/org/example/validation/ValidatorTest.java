@@ -86,7 +86,7 @@ class ValidatorTest {
             Car oldCar = new Car.Builder().model("Ford").power(100).year(1899).build();
 
             assertThatThrownBy(() -> validator.validate(oldCar))
-                    .hasMessageContaining("Год выпуска слишком старый");
+                    .hasMessageContaining("Год выпуска слишком давний");
         }
 
         @Test
@@ -96,7 +96,7 @@ class ValidatorTest {
             Car futureCar = new Car.Builder().model("Tesla").power(100).year(futureYear).build();
 
             assertThatThrownBy(() -> validator.validate(futureCar))
-                    .hasMessageContaining("Год выпуска из будущего");
+                    .hasMessageContaining("Год выпуска ещё не наступил");
         }
     }
 }

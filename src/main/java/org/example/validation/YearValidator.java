@@ -14,13 +14,13 @@ public class YearValidator extends AbstractCarValidator {
 
         if (year < 1900) {
             throw new DataValidateException(
-                    "Год выпуска слишком старый (минимум 1900, получено: " + year + ")"
+                    "Год выпуска слишком давний (минимум 1900, получено: " + year + ")"
             );
         }
 
         if (year > currentYear + 1) {
             throw new DataValidateException(
-                    "Год выпуска из будущего (получено: " + year + ")"
+                    "Год выпуска ещё не наступил (получено: " + year + ")"
             );
         }
     }
